@@ -2,6 +2,7 @@ package com.foxyfine.my_test_mod.items;
 
 import com.foxyfine.my_test_mod.TestMod;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -17,6 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,16 +36,18 @@ public class SwordExcalibur extends SwordItem {
     public boolean isFoil(ItemStack stack) {
         return true;
     }
-    @SubscribeEvent
-    public void onPlayerInteract(PlayerInteractEvent.LeftClickBlock event) {
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
-        Player player = event.getEntity();
-        Level level = player.getLevel();
-        BlockPos blockPos = event.getPos();
-        InteractionHand hand = event.getHand();
-        ItemStack itemStack = player.getItemInHand(hand);
+    @Mod.EventBusSubscriber
+    public static class Events {
+        @SubscribeEvent
+        public static void onPlayerInteract(PlayerInteractEvent.LeftClickBlock event) {
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            Player player = event.getEntity();
+            Level level = player.getLevel();
+            BlockPos blockPos = event.getPos();
+            InteractionHand hand = event.getHand();
+            ItemStack itemStack = player.getItemInHand(hand);
 
-        if (itemStack.getItem() == this) {
+            if (itemStack.getItem() instanceof SwordExcalibur) {
             if (level.isClientSide) {
                 return;
             }
@@ -67,16 +71,19 @@ public class SwordExcalibur extends SwordItem {
 
                 // Дропаем каждый предмет из списка
                 for (ItemStack stack : drops) {
-                    level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, stack)); // Создаем и добавляем предмет в мир
+                    ItemEntity itemEntity = new ItemEntity(level, player.getX(), player.getY(), player.getZ(), stack);
+                    itemEntity.setPickUpDelay(40); // Устанавливаем задержку подбора в ноль
+                    level.addFreshEntity(itemEntity); // Создаем и добавляем предмет в мир
                 }
             }
 
             event.setCancellationResult(InteractionResult.SUCCESS);
             event.setCanceled(true);
+            }
         }
     }
 
-    private List<BlockPos> findOrePositions(Level world, BlockPos centerPos, int radius) {
+    private static List<BlockPos> findOrePositions(Level world, BlockPos centerPos, int radius) {
         List<BlockPos> orePositions = new ArrayList<>();
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {

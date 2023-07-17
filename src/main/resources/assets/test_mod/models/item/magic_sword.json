@@ -1,0 +1,7 @@
+{
+  "parent": "item/handheld",
+  "textures":
+  {
+    "layer0": "test_mod:items/magic_sword"
+  }
+}

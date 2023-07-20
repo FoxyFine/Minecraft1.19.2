@@ -1,7 +1,9 @@
 package com.foxyfine.my_test_mod.init;
 
 import com.foxyfine.my_test_mod.TestMod;
+import com.foxyfine.my_test_mod.block.AltarBlock;
 import com.foxyfine.my_test_mod.block.GunBlock;
+import com.foxyfine.my_test_mod.block.PedestalBlock;
 import com.foxyfine.my_test_mod.block.TrampolineBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -16,4 +18,8 @@ public class BlocksRegistry {
             () -> new TrampolineBlock(Block.Properties.copy(Blocks.DIRT)));
     public static final RegistryObject<Block> GUN_BLOCK = BLOCKS.register("gun",
             () -> new GunBlock(Block.Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<Block> PEDESTAL_BLOCK = BLOCKS.register("pedestal",
+            () -> new PedestalBlock(Block.Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<Block> ALTAR_BLOCK = BLOCKS.register("altar",
+            () -> new AltarBlock(Block.Properties.copy(Blocks.IRON_BLOCK)));
 }

@@ -2,5 +2,7 @@
   "item.test_mod.excalibur": "Экскалибур",
   "item.test_mod.magic_sword": "Меч Экскалибур",
   "itemGroup.mod_materials_tab": "Предметы",
-  "block.test_mod.trampoline": "Простой блок"
+  "block.test_mod.trampoline": "Батут блок",
+  "block.test_mod.gun": "Турель блок",
+  "block.test_mod.pedestal": "Пьедестал блок"
 }

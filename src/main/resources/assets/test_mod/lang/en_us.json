@@ -2,5 +2,7 @@
   "item.test_mod.excalibur": "Excalibur",
   "item.test_mod.magic_sword": "Sword Excalibur",
   "itemGroup.mod_materials_tab": "Item",
-  "block.test_mod.trampoline": "Simple Block"
+  "block.test_mod.trampoline": "Trampoline Block",
+  "block.test_mod.gun": "Gun Block",
+  "block.test_mod.pedestal": "Pedestal Block"
 }

@@ -17,41 +17,42 @@ public class TileEntityPedestal extends BlockEntity {
     private ItemStack displayedItem = ItemStack.EMPTY;
     // Получение предмета, который отображается на вершине блока
     public ItemStack getDisplayedItem() {
+        System.out.println("getDisplayedItem: " + displayedItem);
         return displayedItem;
     }
-    // Метод, который будет вызываться при каждом обновлении мира
-    /*public static void tick(Level level, BlockPos pos, BlockState state, TileEntityPedestal blockEntity) {
-        if (!blockEntity.getDisplayedItem().isEmpty() && !level.isClientSide()) {
+    public static void tick(Level level, BlockPos pos, BlockState state, TileEntityPedestal blockEntity) {
             blockEntity.rotation += ROTATION_SPEED;
             if (blockEntity.rotation >= 360.0f) {
                 blockEntity.rotation -= 360.0f;
             }
-            blockEntity.setChanged();
-        }
-    }*/
-
-    // Установка предмета для отображения на вершине блока
-    public void setDisplayedItem(ItemStack itemStack) {
-        this.displayedItem = itemStack;
-        // Отметить блок-сущность как измененную для сохранения данных
-        this.setChanged();
     }
-
-    // В этом методе сохраняем данные сущности в NBT-тег для сохранения/загрузки
+    public void setDisplayedItem(ItemStack itemStack) {
+        displayedItem = itemStack;
+        System.out.println("setDisplayedItem setDisplayedItem setDisplayedItem: " + displayedItem);
+    }
     @Override
     public void saveAdditional(CompoundTag compound) {
         super.saveAdditional(compound);
         if (!displayedItem.isEmpty()) {
-            compound.put("DisplayedItem", displayedItem.save(new CompoundTag()));
+            CompoundTag itemStack = new CompoundTag();
+            displayedItem.save(itemStack);
+            compound.put("DisplayedItem", itemStack);
         }
+        System.out.println("Saved displayedItem: " + displayedItem);
     }
-
-    // В этом методе загружаем данные сущности из NBT-тега после сохранения/загрузки
     @Override
     public void load(CompoundTag compound) {
         super.load(compound);
         if (compound.contains("DisplayedItem")) {
             displayedItem = ItemStack.of(compound.getCompound("DisplayedItem"));
         }
+        System.out.println("Loaded displayedItem: " + displayedItem);
     }
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag compound = super.getUpdateTag();
+        saveAdditional(compound);
+        return compound;
+    }
+
 }

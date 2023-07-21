@@ -2,9 +2,13 @@ package com.foxyfine.my_test_mod.client.renderer.entity;
 
 import com.foxyfine.my_test_mod.TestMod;
 import com.foxyfine.my_test_mod.client.renderer.TileEntityPedestalRenderer;
+import com.foxyfine.my_test_mod.init.BlocksRegistry;
 import com.foxyfine.my_test_mod.init.EntityRegistry;
 import com.foxyfine.my_test_mod.init.TileRegistry;
+import com.foxyfine.my_test_mod.tiles.TileEntityPedestal;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -20,7 +24,7 @@ public class ModClientSetup  {
         event.registerEntityRenderer(EntityRegistry.PET_ENTITY.get(), new PetEntityRenderer.RenderFactory());
     }
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-        BlockEntityRenderers.register(TileRegistry.PEDESTAL_TILE.get(), TileEntityPedestalRenderer::new);
+    public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(TileRegistry.PEDESTAL_TILE.get(), TileEntityPedestalRenderer::new);
     }
 }

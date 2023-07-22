@@ -49,10 +49,8 @@ public class TestMod {
         TileRegistry.TILE_ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
         EntityRegistry.ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
-
     private void setup(final net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent event) {
     }
-
     private void doClientStuff(final net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) {
     }
 }

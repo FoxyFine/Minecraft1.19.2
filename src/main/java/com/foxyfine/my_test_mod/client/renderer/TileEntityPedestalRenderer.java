@@ -4,6 +4,7 @@ import com.foxyfine.my_test_mod.tiles.TileEntityPedestal;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
@@ -35,11 +36,14 @@ public class TileEntityPedestalRenderer implements BlockEntityRenderer<TileEntit
 
             BakedModel model = itemRenderer.getModel(itemStack, tileEntity.getLevel(), null,0);
 
-            matrixStack.scale(0.5f, 0.5f, 0.5f);
-            matrixStack.translate(0.5, 1.0, 0.5);
+            matrixStack.scale(0.35F, 0.35F, 0.35F);
+            matrixStack.translate(0.0, 2.5, 0.0);
             matrixStack.mulPose(Vector3f.YP.rotationDegrees(tileEntity.rotation));
 
-            itemRenderer.render(itemStack, ItemTransforms.TransformType.FIXED, false, matrixStack, buffer, combinedLight, combinedOverlay, model);
+            // Используйте другой источник света для комбинированного света
+            int light = LevelRenderer.getLightColor(tileEntity.getLevel(), tileEntity.getBlockPos().above());
+
+            itemRenderer.render(itemStack, ItemTransforms.TransformType.FIXED, false, matrixStack, buffer, light, combinedOverlay, model);
             matrixStack.popPose();
     }
 }

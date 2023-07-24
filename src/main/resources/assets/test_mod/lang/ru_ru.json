@@ -4,5 +4,6 @@
   "itemGroup.mod_materials_tab": "Предметы",
   "block.test_mod.trampoline": "Батут блок",
   "block.test_mod.gun": "Турель блок",
-  "block.test_mod.pedestal": "Пьедестал блок"
+  "block.test_mod.pedestal": "Пьедестал блок",
+  "block.test_mod.altar": "Алтарь блок"
 }

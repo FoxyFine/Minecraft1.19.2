@@ -19,7 +19,6 @@ public class TileEntityPedestal extends BlockEntity {
     private ItemStack displayedItem = ItemStack.EMPTY;
     // Получение предмета, который отображается на вершине блока
     public ItemStack getDisplayedItem() {
-        System.out.println("getDisplayedItem: " + displayedItem);
         return displayedItem;
     }
     public static void tick(Level level, BlockPos pos, BlockState state, TileEntityPedestal blockEntity) {
@@ -30,26 +29,27 @@ public class TileEntityPedestal extends BlockEntity {
     }
     public void setDisplayedItem(ItemStack itemStack) {
         displayedItem = itemStack;
+        setChanged();
         // Отправить пакет синхронизации на клиенты
         BlockState state = level.getBlockState(worldPosition);
         level.sendBlockUpdated(worldPosition, state, state, 2);
-        System.out.println("setDisplayedItem setDisplayedItem setDisplayedItem: " + displayedItem);
     }
     @Override
     public void saveAdditional(CompoundTag compound) {
         super.saveAdditional(compound);
-        if (!displayedItem.isEmpty()) {
             CompoundTag itemStack = new CompoundTag();
             displayedItem.save(itemStack);
             compound.put("DisplayedItem", itemStack);
-        }
-        System.out.println("Saved displayedItem: " + displayedItem);
+        System.out.println("saveAdditional displayedItem: " + displayedItem);
     }
     @Override
     public void load(CompoundTag compound) {
         super.load(compound);
         if (compound.contains("DisplayedItem")) {
             displayedItem = ItemStack.of(compound.getCompound("DisplayedItem"));
+        }
+        else {
+            displayedItem = ItemStack.EMPTY;
         }
         System.out.println("Loaded displayedItem: " + displayedItem);
     }
@@ -65,6 +65,6 @@ public class TileEntityPedestal extends BlockEntity {
     }
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        load(pkt.getTag()); // Загрузите данные из пакета и обновите вашу TileEntity на клиентской стороне
+        load(pkt.getTag()); // Загрузка данных из пакета и обновите вашу TileEntity на клиентской стороне
     }
 }

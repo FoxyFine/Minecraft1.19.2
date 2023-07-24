@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemStack;
@@ -36,11 +35,10 @@ public class TileEntityPedestalRenderer implements BlockEntityRenderer<TileEntit
 
             BakedModel model = itemRenderer.getModel(itemStack, tileEntity.getLevel(), null,0);
 
-            matrixStack.scale(0.35F, 0.35F, 0.35F);
-            matrixStack.translate(0.0, 2.5, 0.0);
+            matrixStack.scale(0.50F, 0.50F, 0.50F);
+            matrixStack.translate(0.0, 1.5, 0.0);
             matrixStack.mulPose(Vector3f.YP.rotationDegrees(tileEntity.rotation));
 
-            // Используйте другой источник света для комбинированного света
             int light = LevelRenderer.getLightColor(tileEntity.getLevel(), tileEntity.getBlockPos().above());
 
             itemRenderer.render(itemStack, ItemTransforms.TransformType.FIXED, false, matrixStack, buffer, light, combinedOverlay, model);

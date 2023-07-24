@@ -4,5 +4,6 @@
   "itemGroup.mod_materials_tab": "Item",
   "block.test_mod.trampoline": "Trampoline Block",
   "block.test_mod.gun": "Gun Block",
-  "block.test_mod.pedestal": "Pedestal Block"
+  "block.test_mod.pedestal": "Pedestal Block",
+  "block.test_mod.altar": "Altar Block"
 }
